@@ -72,7 +72,10 @@ class WickedPdf
     if WickedPdf.config[:use_puppeteer]
       spec = Gem::Specification.find_by_name('wicked_pdf')
       node_modules_path = "#{Rails.root.to_s}/node_modules"
-      command = ['node', File.join(spec.gem_dir, 'lib', 'wicked_pdf', 'pdf.js'), node_modules_path, @exe_path]
+      command = ['node', File.join(spec.gem_dir, 'lib', 'wicked_pdf', 'pdf.js'), node_modules_path]
+      if WickedPdf.config[:puppeteer_exec_path].present?
+        command << WickedPdf.config[:puppeteer_exec_path]
+      end
     else
       command = [@exe_path]
       command << '-q' unless on_windows? # suppress errors on stdout
