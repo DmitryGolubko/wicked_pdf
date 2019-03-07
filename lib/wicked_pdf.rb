@@ -313,6 +313,7 @@ class WickedPdf
   def parse_others(options)
     r = []
     unless options.blank?
+      r += make_options(options, [:display_header_footer, :header_template, :footer_template])
       r += make_options(options, [:proxy,
                                   :username,
                                   :password,
